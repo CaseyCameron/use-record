@@ -1,19 +1,21 @@
 import React from 'react';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { initialState, reducer } from '../../state/reducer';
+import { ReduxProvider } from '../../state/ReduxProvider';
 import App from './App';
 
 describe('App component', () => {
   afterEach(() => cleanup());
   it('renders App', () => {
-    render(<App />);
+    render(<ReduxProvider reducer={reducer} initialState={initialState}><App /></ReduxProvider>);
 
     const colorDisplay = screen.getByTestId('color-display');
-    expect(colorDisplay).toHaveStyle({ backgroundColor: '#FF0000' });
+    expect(colorDisplay).toHaveStyle({ backgroundColor: '#FFFF00' });
 
   });
 
   it('Changes Color', () => {
-    render(<App />);
+    render(<ReduxProvider reducer={reducer} initialState={initialState}><App /></ReduxProvider>);
     const colorInput = screen.getByTestId('color-input');
     const colorDisplay = screen.getByTestId('color-display');
 
@@ -23,7 +25,7 @@ describe('App component', () => {
   });
 
   it('Undo', () => {
-    render(<App />);
+    render(<ReduxProvider reducer={reducer} initialState={initialState}><App /></ReduxProvider>);
     const colorInput = screen.getByTestId('color-input');
     const colorDisplay = screen.getByTestId('color-display');
     const undo = screen.getByRole('button', { name: 'undo' });
@@ -40,7 +42,7 @@ describe('App component', () => {
   });
 
   it('Redo', () => {
-    render(<App />);
+    render(<ReduxProvider reducer={reducer} initialState={initialState}><App /></ReduxProvider>);
     const colorInput = screen.getByTestId('color-input');
     const colorDisplay = screen.getByTestId('color-display');
     const undo = screen.getByRole('button', { name: 'undo' });

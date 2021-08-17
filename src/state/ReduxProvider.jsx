@@ -2,10 +2,10 @@ import React, { createContext, useContext, useReducer } from 'react';
 
 const ReduxContext = createContext();
 
-export const ReduxProvider = ({ reducer, intialState, children }) => {
+export const ReduxProvider = ({ reducer, initialState, children }) => {
   // takes in the reducer function name, and state
   // dispatch sends the action into the reducer function
-  const [state, dispatch] = useReducer(reducer, intialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <ReduxContext.Provider value={{ state, dispatch }}>

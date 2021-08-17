@@ -12,6 +12,7 @@ export function reducer(state, action) {
   switch (action.type) {
     case CURRENT_COLOR:
       return {
+        ...state,
         before: [...before, current],
         current: action.payload
       };

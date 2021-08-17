@@ -1,1 +1,1 @@
-export const selectCharacters = (state) => state.characters;
+export const selectColors = (state) => state.current;

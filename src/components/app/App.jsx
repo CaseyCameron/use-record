@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from '../../state/ReduxProvider';
+import { selectColors } from '../../state/selectors';
 
 const useRecord = (init) => {
   const [before, setBefore] = useState([]);
@@ -31,7 +33,11 @@ const useRecord = (init) => {
 };
 
 function App() {
-  const { current, undo, redo, record } = useRecord("#FF0000");
+  // const { current, undo, redo, record } = useRecord("#FF0000");
+  const current = useSelector(selectColors);
+  const dispatch = useDispatch();
+  const undoColor = () => dispatch(undo());
+  const redoColor = () => dispatch(redo());
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { USE_RECORD } from "./actions";
+import { CURRENT_COLOR, UNDO_COLOR, REDO_COLOR } from "./actions";
 
 export const initialState = {
   current: '#FFFF00',
@@ -8,22 +8,26 @@ export const initialState = {
 
 //take in each piece of state: current, before, after
 export function reducer(state, action) {
+  const { current, before, after } = state;
   switch (action.type) {
-    case USE_RECORD:
-      return state;
-    case 'UNDO':
+    case CURRENT_COLOR:
+      return {
+        before: [...before, current],
+        current: action.payload
+      };
+    case UNDO_COLOR:
       return {
         ...state,
-        current: action.payload(),
-        before: action.payload(),
-        after: action, payload()
+        after: [current, ...after],
+        current: before[before.length - 1],
+        before: before.slice(0, -1),
       }
-    case 'REDO':
+    case REDO_COLOR:
       return {
         ...state,
-        current: action.payload(1),
-        before: action.payload(),
-        after: action, payload()
+        before: [...before, current],
+        current: [after[0]],
+        after: after.slice(1),
       }
     default:
       return state;
